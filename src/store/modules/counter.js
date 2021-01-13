@@ -21,13 +21,13 @@ export default handleActions({
   [DECREMENT]: ({ number }) => ({ number: number - 1 })
 }, initialState);
 
-export default function reducer(state = initialState, action) {
-  switch(action.type) {
-    case INCREMENT:
-      return { number: state.number + 1 };
-    case DECREMENT:
-      return { number: state.number - 1 };
-    default:
-      return state;
-  }
-}
+// export default function reducer(state = initialState, action) {
+//   switch(action.type) {
+//     case INCREMENT:
+//       return { number: state.number + 1 };
+//     case DECREMENT:
+//       return { number: state.number - 1 };
+//     default:
+//       return state;
+//   }
+// }
