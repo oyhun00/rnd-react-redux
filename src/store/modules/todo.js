@@ -1,5 +1,5 @@
 import { List } from 'immutable';
-import { createAction, handleAction } from 'redux-actions';
+import { createAction, handleActions } from 'redux-actions';
 
 const CHANGE_INPUT = 'todo/CHANGE_INPUT';
 const INSERT = 'todo/INSERT';
@@ -29,5 +29,9 @@ export default handleActions({
   [TOGGLE]: (state, { payload: id }) => {
     const index = state.get('todos').findIndex(item => item.get('id') === id);
     return state.updateIn(['todos', index, 'checked'], checked => !checked);
+  },
+  [REMOVE]: (state, { payload: id }) => {
+    const index = state.get('todos').findIndex(item => item.get('id') === id);
+    return state.deleteIn(['todos', index]);
   }
 }, initialState)
