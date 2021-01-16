@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import Todos from '../components/Todos';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import * as todoActions from '../store/modules/todo';
 
 class TodosContainer extends Component {
   handleChange = (e) => {
     const { TodoActions } = this.props;
+    console.log(this.props);
     TodoActions.changeInput(e.target.value);
   }
 
@@ -43,12 +44,12 @@ class TodosContainer extends Component {
 
 
 const mapStateToProps = (state) => ({
-  input: state.todo.get('input',
-  todos: state.todo.number
+  input: state.todo.input,
+  todos: state.todo.todos
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  TodoActions: () => dispatch(counterActions.increment())
+  TodoActions: () => dispatch(todoActions.changeInput())
 })
 
 

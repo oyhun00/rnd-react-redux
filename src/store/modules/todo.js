@@ -13,14 +13,16 @@ export const remove = createAction(REMOVE, id => id);
 
 let id = 0;
 
-const initialState = Map({
+const initialState = {
   input: '',
   todos: List()
-});
+};
 
 export default handleActions({
   [CHANGE_INPUT]: (state, action) => {
-    return state.set('input', action.payload);
+    return Object.assign({}, state, {
+      input: state.input.concat(action.payload)
+    })
   },
   [INSERT]: (state, { payload: text }) => {
     const item = Map({ id: id++, checked: false, text });
