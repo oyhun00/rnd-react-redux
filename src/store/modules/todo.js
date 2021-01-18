@@ -1,4 +1,4 @@
-import { List } from 'immutable';
+import { Map, List } from 'immutable';
 import { createAction, handleActions } from 'redux-actions';
 
 const CHANGE_INPUT = 'todo/CHANGE_INPUT';
@@ -14,15 +14,29 @@ export const remove = createAction(REMOVE, id => id);
 let id = 0;
 
 const initialState = {
-  input: '',
-  todos: List()
+  input: 'a',
+  todos: [
+    {
+      id: 0,
+      text: '걷기',
+      checked: false
+    }
+  ]
 };
 
+// const initialState = Map({
+//   input: 'a',
+//   todos: List()
+// });
+
+
 export default handleActions({
+//  [CHANGE_INPUT]: (state, action) => state.set('input', action.payload),
   [CHANGE_INPUT]: (state, action) => {
-    return Object.assign({}, state, {
-      input: state.input.concat(action.payload)
-    })
+    return { 
+      ...state,
+      input: action.payload
+     }
   },
   [INSERT]: (state, { payload: text }) => {
     const item = Map({ id: id++, checked: false, text });

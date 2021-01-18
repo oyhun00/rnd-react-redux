@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import Todos from '../components/Todos';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import * as todoActions from '../store/modules/todo';
 
 class TodosContainer extends Component {
   handleChange = (e) => {
-    const { TodoActions } = this.props;
-    console.log(this.props);
-    TodoActions.changeInput(e.target.value);
+    const { changeInput } = this.props;
+    console.log(e.target.value);
+    changeInput(e.target.value);
+    // const { TodoActions } = this.props;
+    // TodoActions.changeInput(e.target.value);
   }
 
   handleInsert = () => {
@@ -43,13 +46,25 @@ class TodosContainer extends Component {
 }
 
 
+// export default connect(
+//   // state 를 비구조화 할당 해주었습니다
+//   ({ todo }) => ({
+//     // immutable 을 사용하니, 값을 조회 할 때엔느 .get 을 사용해주어야하죠.
+//     input: todo.get('input'),
+//     todos: todo.get('todos')
+//   }),
+//   (dispatch) => ({
+//     TodoActions: bindActionCreators(todoActions, dispatch)
+//   })
+// )(TodosContainer);
+
 const mapStateToProps = (state) => ({
   input: state.todo.input,
   todos: state.todo.todos
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  TodoActions: () => dispatch(todoActions.changeInput())
+  changeInput: input => dispatch(todoActions.changeInput(input))
 })
 
 
