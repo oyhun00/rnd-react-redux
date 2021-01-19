@@ -17,7 +17,7 @@ const initialState = {
   input: 'a',
   todos: [
     {
-      id: 0,
+      id: 1,
       text: '걷기',
       checked: false
     }
@@ -43,8 +43,16 @@ export default handleActions({
     return state.update('todos', todos => todos.push(item));
   },
   [TOGGLE]: (state, { payload: id }) => {
-    const index = state.get('todos').findIndex(item => item.get('id') === id);
-    return state.updateIn(['todos', index, 'checked'], checked => !checked);
+    return {
+      ...state,
+      todos: state.todos.map(
+        (item) => item.id === id
+        ? { ...item, checked: !item.checked}
+        : item
+      )
+    }
+    // const index = state.get('todos').findIndex(item => item.get('id') === id);
+    // return state.updateIn(['todos', index, 'checked'], checked => !checked);
   },
   [REMOVE]: (state, { payload: id }) => {
     const index = state.get('todos').findIndex(item => item.get('id') === id);

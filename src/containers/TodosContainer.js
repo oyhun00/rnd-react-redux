@@ -7,21 +7,27 @@ import * as todoActions from '../store/modules/todo';
 class TodosContainer extends Component {
   handleChange = (e) => {
     const { changeInput } = this.props;
-    console.log(e.target.value);
     changeInput(e.target.value);
     // const { TodoActions } = this.props;
     // TodoActions.changeInput(e.target.value);
   }
 
   handleInsert = () => {
-    const { input, TodoActions } = this.props;
-    TodoActions.insert(input);
-    TodoActions.changeInput('');
+    // const { input, TodoActions } = this.props;
+    // TodoActions.insert(input);
+    // TodoActions.changeInput('');
+
+    // const { input, insert, changeInput } = this.props;
+    // insert(input)
+    // changeInput('');
   }
   
   handleToggle = (id) => {
-    const { TodoActions } = this.props;
-    TodoActions.toggle(id);
+    // const { TodoActions } = this.props;
+    // TodoActions.toggle(id);
+    console.log(id);
+    const { toggle } = this.props;
+    toggle(id);
   }
   
   handleRemove = (id) => {
@@ -64,7 +70,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeInput: input => dispatch(todoActions.changeInput(input))
+  changeInput: input => dispatch(todoActions.changeInput(input)),
+  toggle: id => dispatch(todoActions.toggle(id))
 })
 
 
