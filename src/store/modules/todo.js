@@ -1,4 +1,3 @@
-import { Map, List } from 'immutable';
 import { createAction, handleActions } from 'redux-actions';
 
 const CHANGE_INPUT = 'todo/CHANGE_INPUT';
@@ -11,13 +10,13 @@ export const insert = createAction(INSERT, text => text);
 export const toggle = createAction(TOGGLE, id => id);
 export const remove = createAction(REMOVE, id => id);
 
-let id = 0;
+let id = 1;
 
 const initialState = {
   input: 'a',
   todos: [
     {
-      id: 1,
+      id: 0,
       text: '걷기',
       checked: false
     }
@@ -39,8 +38,17 @@ export default handleActions({
      }
   },
   [INSERT]: (state, { payload: text }) => {
-    const item = Map({ id: id++, checked: false, text });
-    return state.update('todos', todos => todos.push(item));
+    // const item = Map({ id: id++, checked: false, text });
+    // return state.update('todos', todos => todos.push(item));
+    console.log(text);
+    return {
+      ...state,
+      todos: state.todos.concat({
+        id: id++,
+        text: text,
+        checked: false,
+      })
+    }
   },
   [TOGGLE]: (state, { payload: id }) => {
     return {
@@ -55,7 +63,15 @@ export default handleActions({
     // return state.updateIn(['todos', index, 'checked'], checked => !checked);
   },
   [REMOVE]: (state, { payload: id }) => {
-    const index = state.get('todos').findIndex(item => item.get('id') === id);
-    return state.deleteIn(['todos', index]);
+    // const index = state.get('todos').findIndex(item => item.get('id') === id);
+    // return state.deleteIn(['todos', index]);
+
+    return {
+      ...state,
+      todos: state.todos.filter(
+        (item) => item.id !== id
+      )
+    }
+
   }
 }, initialState)

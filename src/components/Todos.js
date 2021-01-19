@@ -8,7 +8,7 @@ const TodoItem = ({ id, text, checked, onToggle, onRemove }) => (
     }} 
     onClick={() => onToggle(id)}
     onDoubleClick={() => onRemove(id)}>
-    {text}
+    {text}<span>---{id}</span>
   </li>
 )
 
