@@ -46,15 +46,21 @@ class TodosContainer extends Component {
 
   handleUpdateChange = (e) => {
     const { updateChange } = this.props;
-    updateChange(e.targe.value);
+    updateChange(e.target.value);
+  }
+
+  handleUpdateDone = (id) => {
+    const { updateDone } = this.props;
+    updateDone(id);
   }
 
   render() {
-    const { handleChange, handleInsert, handleRemove, handleToggle, handleUpdateToggle, handleUpdateChange } = this;
-    const { input, todos } = this.props;
+    const { handleChange, handleInsert, handleRemove, handleToggle, handleUpdateToggle, handleUpdateChange, handleUpdateDone } = this;
+    const { input, updateInput, todos } = this.props;
     return (
       <Todos
         input={input}
+        updateInput={updateInput}
         todos={todos}
         onChange={handleChange}
         onInsert={handleInsert}
@@ -62,6 +68,7 @@ class TodosContainer extends Component {
         onToggle={handleToggle}
         onUpdateToggle={handleUpdateToggle}
         onUpdateChange={handleUpdateChange}
+        onUpdateDone={handleUpdateDone}
       />
     );
   }
@@ -82,6 +89,7 @@ class TodosContainer extends Component {
 
 const mapStateToProps = (state) => ({
   input: state.todo.input,
+  updateInput: state.todo.updateInput,
   todos: state.todo.todos
 });
 
@@ -92,6 +100,7 @@ const mapDispatchToProps = (dispatch) => ({
   remove: id => dispatch(todoActions.remove(id)),
   updateToggle: id => dispatch(todoActions.updateToggle(id)),
   updateChange: updateValue => dispatch(todoActions.updateChange(updateValue)),
+  updateDone: id => dispatch(todoActions.updateDone(id)),
 })
 
 

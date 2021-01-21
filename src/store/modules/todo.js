@@ -6,6 +6,7 @@ const TOGGLE = 'todo/TOGGLE';
 const REMOVE = 'todo/REMOVE';
 const UPDATE_TOGGLE = 'todo/UPDATE_TOGGLE';
 const UPDATE_CHANGE = 'todo/UPDATE_CHANGE';
+const UPDATE_DONE = 'todo/UPDATE_DONE';
 
 export const changeInput = createAction(CHANGE_INPUT, value => value);
 export const insert = createAction(INSERT, text => text);
@@ -13,11 +14,13 @@ export const toggle = createAction(TOGGLE, id => id);
 export const remove = createAction(REMOVE, id => id);
 export const updateToggle = createAction(UPDATE_TOGGLE, id => id);
 export const updateChange = createAction(UPDATE_CHANGE, value => value);
+export const updateDone = createAction(UPDATE_DONE, id => id);
 
 let id = 0;
 
 const initialState = {
   input: '',
+  updateInput: '',
   todos: []
 };
 
@@ -73,22 +76,30 @@ export default handleActions({
     }
   },
   [UPDATE_TOGGLE]: (state, { payload: id }) => {
+    const getId = state.todos.find( item => item.id === id);
     return {
       ...state,
+      updateInput: getId.text,
       todos: state.todos.map(
         (item) => item.id === id
         ? { ...item, update: !item.update}
-        : item
+        : { ...item, update: false }
       )
     }
   },
   [UPDATE_CHANGE]: (state, action) => {
     return {
       ...state,
+      updateInput: action.payload
+    }
+  },
+  [UPDATE_DONE]: (state, { payload: id }) => {
+    return {
+      ...state,
       todos: state.todos.map(
-        (item) => item.update === true
-        ? { ...item, text: action.payload}
-        : item
+        (item) => item.id === id
+        ? { ...item, text: state.updateInput, update: false }
+        : { ...item }
       )
     }
   }

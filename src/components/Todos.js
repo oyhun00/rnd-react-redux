@@ -1,11 +1,11 @@
 import React from 'react';
 import { List, Map } from 'immutable';
 
-const TodoItem = ({ id, text, checked, update, onToggle, onRemove, onUpdateToggle, onUpdateChange }) => 
+const TodoItem = ({ id, text, checked, updateInput, update, onToggle, onRemove, onUpdateToggle, onUpdateChange, onUpdateDone }) => 
   update ? (
     <li>
-      <input value={text} onChange={onUpdateChange} />
-      <span><button>완료</button></span>
+      <input value={updateInput} onChange={onUpdateChange} />
+      <span><button onClick={() => onUpdateDone(id)}>완료</button></span>
       <span><button onClick={() => onUpdateToggle(id)}>취소</button></span>
     </li>
   ) : (
@@ -19,7 +19,7 @@ const TodoItem = ({ id, text, checked, update, onToggle, onRemove, onUpdateToggl
     </li>
   )
 
-const Todos = ({todos, input, onInsert, onToggle, onRemove, onChange, onUpdateToggle, onUpdateChange }) => {
+const Todos = ({todos, input, updateInput, onInsert, onToggle, onRemove, onChange, onUpdateToggle, onUpdateChange, onUpdateDone }) => {
   
   const todoItems = todos.map(
     todo => {
@@ -30,11 +30,13 @@ const Todos = ({todos, input, onInsert, onToggle, onRemove, onChange, onUpdateTo
           id={id}
           checked={checked}
           text={text}
+          updateInput={updateInput}
           update={update}
           onToggle={onToggle}
           onRemove={onRemove}
           onUpdateToggle={onUpdateToggle}
           onUpdateChange={onUpdateChange}
+          onUpdateDone={onUpdateDone}
           key={id}
         />
       )
