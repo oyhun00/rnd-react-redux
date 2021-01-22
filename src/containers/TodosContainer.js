@@ -93,15 +93,18 @@ const mapStateToProps = (state) => ({
   todos: state.todo.todos
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  changeInput: input => dispatch(todoActions.changeInput(input)),
-  insert: input => dispatch(todoActions.insert(input)),
-  toggle: id => dispatch(todoActions.toggle(id)),
-  remove: id => dispatch(todoActions.remove(id)),
-  updateToggle: id => dispatch(todoActions.updateToggle(id)),
-  updateChange: updateValue => dispatch(todoActions.updateChange(updateValue)),
-  updateDone: id => dispatch(todoActions.updateDone(id)),
-})
+const mapDispatchToProps = (dispatch) => (
+  // {
+  // changeInput: input => dispatch(todoActions.changeInput(input)),
+  // insert: input => dispatch(todoActions.insert(input)),
+  // toggle: id => dispatch(todoActions.toggle(id)),
+  // remove: id => dispatch(todoActions.remove(id)),
+  // updateToggle: id => dispatch(todoActions.updateToggle(id)),
+  // updateChange: updateValue => dispatch(todoActions.updateChange(updateValue)),
+  // updateDone: id => dispatch(todoActions.updateDone(id)),
+  // }
+  bindActionCreators(todoActions, dispatch)
+)
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodosContainer);
